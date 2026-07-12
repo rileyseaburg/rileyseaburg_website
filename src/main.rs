@@ -105,7 +105,7 @@ async fn main() -> std::io::Result<()> {
             .service(routes::not_found::not_found)
             .service(routes::newsletter::newsletter)
             .service(routes::newsletter::newsletter_post)
-            .service(routes::blog::blog)
+            .configure(routes::blog::configure)
             .service(routes::post::get_post)
             .service(routes::post::update_post)
             .service(routes::post::edit_post)

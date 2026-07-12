@@ -1,0 +1,17 @@
+{% extends 'base.html.tera' %}
+{% block title %}{{ title }}{% endblock title %}
+{% block head %}{{ super() }}{% endblock head %}
+{% block content %}
+<div id="content">
+  <main class="relative px-6 lg:px-8 bg-gray-100 min-h-screen py-12">
+    <article class="mx-auto max-w-3xl bg-white p-8 rounded-lg shadow-md">
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-snug mb-8 text-gray-900 border-b pb-4">
+        {{ title }}
+      </h1>
+      <div class="mt-4 text-gray-700 prose lg:prose-xl">
+        {{ content | markdown | safe }}
+      </div>
+    </article>
+  </main>
+</div>
+{% endblock content %}
