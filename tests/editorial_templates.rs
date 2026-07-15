@@ -17,14 +17,15 @@ fn templates() -> Tera {
 fn editorial_pages_render() {
     let tera = templates();
     let post = json!({
-        "title": "Results not Words", "content": "## Proof\nShip the work.",
+        "title": "America\u{e2}\u{20ac}\u{2122}s Work", "content": "## Proof\nShip the work.",
         "author": "Riley Seaburg", "category": null,
         "publish_date": "2024-05-21 17:18:41", "slug": "results-not-words"
     });
     let mut listing = Context::new();
     listing.insert("posts", &vec![post.clone()]);
     let blog = tera.render("pages/blog.html.tera", &listing).unwrap();
-    assert!(blog.contains("Build things that") && blog.contains("Results not Words"));
+    assert!(blog.contains("Build things that") && blog.contains("America’s Work"));
+    assert!(!blog.contains("Americaâ€™s Work"));
     let mut article = Context::new();
     article.insert("post", &post);
     let page = tera.render("pages/post.html.tera", &article).unwrap();

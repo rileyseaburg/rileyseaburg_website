@@ -12,12 +12,13 @@
     {% for post in posts %}
     {% set date = post.publish_date | default(value="") | split(pat=" ") %}
     {% set topic = post.category | default(value="Field note", boolean=true) %}
+    {% set clean_title = post.title | default(value="Untitled", boolean=true) | replace(from="â€™", to="’") | replace(from="â€œ", to="“") | replace(from="â€", to="”") %}
     <article class="journal-entry">
-      <a class="entry-link" href="/posts/{{ post.slug }}" aria-label="Read {{ post.title }}">
+      <a class="entry-link" href="/posts/{{ post.slug }}" aria-label="Read {{ clean_title }}">
         <span class="entry-number">{{ loop.index }}</span>
         <div class="entry-copy">
           <div class="entry-meta"><time datetime="{{ date | first | default(value='') }}">{{ date | first | default(value='Undated') }}</time><span>{{ topic }}</span></div>
-          <h2>{{ post.title | default(value="Untitled", boolean=true) | replace(from="â€™", to="’") | replace(from="â€œ", to="“") | replace(from="â€", to="”") }}</h2>
+          <h2>{{ clean_title }}</h2>
           <p>{{ post.content | default(value="", boolean=true) | markdown | striptags | truncate(length=220) }}</p>
         </div>
         <span class="entry-arrow" aria-hidden="true">↗</span>
