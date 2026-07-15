@@ -6,6 +6,8 @@
         {% include 'sections/header.html.tera' %}
 
         {% endblock head %}
+        <meta name="description" content="{% block description %}Field notes on building dependable software, autonomous agents, and a life measured by results.{% endblock description %}">
+        <title>{% block title %}{% endblock title %}</title>
     </head>
 
     <body id='app' class='h-full'>

@@ -1,19 +1,9 @@
 {% extends 'base.html.tera' %}
-{% block title %}{{post.title}}{% endblock title %}
-{% block head %}
-{{ super() }}
-{% endblock head %}
+{% import 'macros/editorial_post.html.tera' as editorial %}
+{% block title %}{{ post.title }} — Riley Seaburg{% endblock title %}
+{% block description %}{{ post.content | default(value="", boolean=true) | markdown | striptags | truncate(length=155) }}{% endblock description %}
+{% block head %}{{ super() }}{% include 'sections/editorial_head.html.tera' %}<link rel="stylesheet" href="/css/post.css">{% endblock head %}
 {% block content %}
-<div id="content">
-  <div class="relative px-6 lg:px-8 bg-gray-100 min-h-screen py-12">
-    <div class="mx-auto max-w-2xl bg-white p-8 rounded-lg shadow-md">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-snug mb-8 text-gray-900 border-b pb-4">
-        {{post.title}}
-      </h1>
-      <div class="mt-4 text-gray-700 prose lg:prose-xl">
-        {{post.content | markdown | safe}}
-      </div>
-    </div>
-  </div>
-</div>
+{% set date = post.publish_date | default(value="") | split(pat=" ") | first | default(value="") %}
+{{ editorial::render(title=post.title, content=post.content, author=post.author, category=post.category, date=date) }}
 {% endblock content %}

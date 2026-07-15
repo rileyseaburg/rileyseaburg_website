@@ -1,0 +1,15 @@
+{% macro render(title, content, author="Riley Seaburg", category="Field note", date="") %}
+<main class="article-page">
+  <article class="article-wrap">
+    <nav class="article-nav" aria-label="Article navigation"><a href="/blog">← All field notes</a><span>Riley Seaburg</span></nav>
+    <header class="article-header">
+      <p class="eyebrow">{{ category | default(value="Field note", boolean=true) }}</p>
+      <h1>{{ title | replace(from="â€™", to="’") | replace(from="â€œ", to="“") | replace(from="â€", to="”") }}</h1>
+      <div class="article-byline"><span>Written by {{ author | default(value="Riley Seaburg", boolean=true) }}</span>{% if date %}<time datetime="{{ date }}">{{ date }}</time>{% endif %}</div>
+    </header>
+    <div class="article-rule"><span></span><i></i></div>
+    <div class="article-body">{{ content | markdown | safe }}</div>
+    <footer class="article-footer"><p>Thanks for reading.</p><a href="/blog">Explore more field notes <span>→</span></a></footer>
+  </article>
+</main>
+{% endmacro render %}
